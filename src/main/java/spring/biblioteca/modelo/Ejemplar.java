@@ -3,6 +3,10 @@ package spring.biblioteca.modelo;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
@@ -28,6 +32,10 @@ public class Ejemplar {
     @ColumnDefault("'Disponible'")
     @Lob
     @Column(name = "estado")
+    @NotBlank(message = "El campo no puede estar vacio")
+    @NotNull(message = "El campo no puede estar vacio")
+    @NotEmpty(message = "El campo no puede estar vacio")
+    @Pattern(regexp = "^(disponible|prestado|dañado)$",message = "Solo puede haber estos estados:disponible|prestado|dañado")
     private String estado;
 
     @OneToMany(mappedBy = "ejemplar")

@@ -31,6 +31,7 @@ public class UsuarioController {
         return ResponseEntity.ok(servicio.getUsuarioById(id));
     }
     @GetMapping("/getUsrByDni/{dni}")
+    @Cacheable
     public ResponseEntity<Usuario> getUsuarioByDNI(@PathVariable String dni) throws InterruptedException {
         return ResponseEntity.ok(servicio.getUsuarioByDNI(dni));
     }
@@ -41,6 +42,7 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioSalvo);
     }
     @PostMapping("/modUsr")
+    @Cacheable
     public ResponseEntity<Usuario> updateUsuario(@RequestBody Usuario usuario) {
         Usuario usuarioSalvo = this.servicio.updateUsuario(usuario);
         return ResponseEntity.ok(usuarioSalvo);

@@ -15,7 +15,7 @@ import spring.biblioteca.servicio.UsuarioService;
 
 @RestController
 @RequestMapping("/prestamos")
-@CacheConfig(cacheNames = {"ejemplares"})
+@CacheConfig(cacheNames = {"prestamo"})
 public class PrestamoController {
     PrestamoService servicio;
     UsuarioService usuarioService;
@@ -30,9 +30,10 @@ public class PrestamoController {
         return ResponseEntity.ok(servicio.getAllPrestamos());
     }
 
-    @GetMapping("/getPrestamoByUsr/{usr}")
-    public ResponseEntity<Iterable<Prestamo>> getPrestamoByUsuarioDni(@PathVariable String usr) {
-        return ResponseEntity.ok(servicio.getPrestamoByUsr(usuarioService.getUsuarioBy));
+    @GetMapping("/getPrestamoByUsr/{dni}")
+    @Cacheable
+    public ResponseEntity<Iterable<Prestamo>> getPrestamoByUsuarioDni(@PathVariable String dni) {
+        return ResponseEntity.ok(servicio.getPrestamoByUsr(usuarioService.getUsuarioByDNI(dni)));
     }
 
     @GetMapping("/getPrestamoByEjemplar/{Ejemplar}")
@@ -49,6 +50,7 @@ public class PrestamoController {
     }
 
     @PostMapping("/modPrestamo")
+    @Cacheable
     public ResponseEntity<Prestamo> updatePrestamo(@RequestBody Prestamo prestamo) {
         Prestamo prestamoSalvo = this.servicio.updatePrestamo(prestamo);
         return ResponseEntity.ok(prestamoSalvo);

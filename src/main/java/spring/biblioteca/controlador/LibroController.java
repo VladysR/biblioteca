@@ -12,6 +12,7 @@ import spring.biblioteca.servicio.LibroService;
 
 @RestController
 @RequestMapping("/libros")
+@CacheConfig(cacheNames = {"libros"})
 public class LibroController {
     LibroService servicio;
     public LibroController() {}
@@ -25,15 +26,18 @@ public class LibroController {
         return ResponseEntity.ok(servicio.getAllLibros());
     }
     @GetMapping("/{isbn}")
+    @Cacheable
     public ResponseEntity<Libro> getLibroByISBN(@PathVariable String isbn) {
         return ResponseEntity.ok(servicio.getLibroByISBN(isbn));
     }
     @PostMapping("/addLibro")
+    @Cacheable
     public ResponseEntity<Libro> addLibro(@RequestBody Libro libro) {
         Libro libroSalvo = this.servicio.addLibro(libro);
         return ResponseEntity.ok(libroSalvo);
     }
     @PostMapping("/modLibro")
+    @Cacheable
     public ResponseEntity<Libro> updateLibro(@RequestBody Libro libro) {
         Libro libroSalvo = this.servicio.updateLibro(libro);
         return ResponseEntity.ok(libroSalvo);

@@ -2,6 +2,9 @@ package spring.biblioteca.modelo;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -28,6 +31,9 @@ public class Prestamo {
     private Ejemplar ejemplar;
 
     @Column(name = "fechaInicio", nullable = false)
+    @NotBlank(message = "El campo no puede estar vacio")
+    @NotNull(message = "El campo no puede estar vacio")
+    @NotEmpty(message = "El campo no puede estar vacio")
     private LocalDate fechaInicio;
 
     @Column(name = "fechaDevolucion")

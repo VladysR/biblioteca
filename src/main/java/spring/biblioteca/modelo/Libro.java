@@ -14,13 +14,26 @@ import java.util.Set;
 public class Libro {
     @Id
     @Column(name = "isbn", nullable = false, length = 20)
+    @NotBlank (message = "El campo no puede estar vacio")
+    @NotNull (message = "El campo no puede estar vacio")
+    @NotEmpty (message = "El campo no puede estar vacio")
     @Pattern(regexp = "^(?:ISBN(?:-13)?:?)(?=[0-9]{13}$)([0-9]{3}-){2}[0-9]{3}[0-9X]$", message = "Formato de ISBN incorrecto")
     private String isbn;
 
     @Column(name = "titulo", nullable = false, length = 200)
+    @NotBlank (message = "El campo no puede estar vacio")
+    @NotNull (message = "El campo no puede estar vacio")
+    @NotEmpty (message = "El campo no puede estar vacio")
+    @Size(max = 200, message = "El título no puede exceder los 200 caracteres")
+    @Pattern(regexp = "^[a-zA-Z0-9\\sñáéíóúÁÉÍÓÚüÜçÇ]*$", message = "El título solo puede contener caracteres alfanuméricos y espacios")
     private String titulo;
 
     @Column(name = "autor", nullable = false, length = 100)
+    @NotBlank (message = "El campo no puede estar vacio")
+    @NotNull (message = "El campo no puede estar vacio")
+    @NotEmpty (message = "El campo no puede estar vacio")
+    @Size(max = 100, message = "El autor no puede exceder los 100 caracteres")
+    @Pattern(regexp = "^[a-zA-Z0-9\\sñáéíóúÁÉÍÓÚüÜçÇ]$", message = "El autor solo puede contener caracteres alfanuméricos y espacios")
     private String autor;
 
     @OneToMany(mappedBy = "isbn")

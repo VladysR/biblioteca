@@ -28,10 +28,12 @@ public class EjemplarController {
     }
 
     @GetMapping("/getEjemplar/{id}")
+    @Cacheable
     public ResponseEntity<Ejemplar> getEjemplar(@PathVariable int id) {
         return ResponseEntity.ok(servicio.getEjemplarById(id));}
 
     @GetMapping("/getEjemplaresByEstado/{estado}")
+    @Cacheable
     public ResponseEntity<Iterable<Ejemplar>> getEjemplaresByEstado(@PathVariable String estado) {
         return ResponseEntity.ok(servicio.getEjemplaresByEstado(estado));
     }
@@ -50,6 +52,7 @@ public class EjemplarController {
     }
 
     @PostMapping("/modEjemplar")
+    @Cacheable
     public ResponseEntity<Ejemplar> updateEjemplar(@RequestBody Ejemplar ejemplar) {
         Ejemplar ejemplarSalvo = this.servicio.updateEjemplar(ejemplar);
         return ResponseEntity.ok(ejemplarSalvo);
